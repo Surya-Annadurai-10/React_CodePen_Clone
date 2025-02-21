@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import {useDispatch} from "react-redux";
 import { addUserData } from '../slices/slice';
-import { TbMailFilled } from "react-icons/tb";
 import AuthBox from '../Components/AuthBox';
+import {motion} from "motion/react"
+import { variantsObj } from './Projects';
+
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -18,13 +20,24 @@ const Auth = () => {
   }
   return (
   <>
-    <div  className='bg-[#131417] p-4 w-full py-6  h-[91%] text-white'>
-      <img className='w-[100px]' src="https://cdn.freebiesupply.com/logos/large/2x/codepen-logo-png-transparent.png" alt="" />
-        <div className='w-full grid place-items-center'>
-             <h1>Become one of Us !🤩</h1>
+    <div 
+
+    className='bg-[#131417] p-4 w-full py-6  h-[91%] text-white'>
+      <motion.img
+      variants={variantsObj}
+      initial="hidden"
+      animate="visible"
+      className='w-[100px]' src="https://cdn.freebiesupply.com/logos/large/2x/codepen-logo-png-transparent.png" alt="" />
+        <div className='w-full gap-4 grid place-items-center'>
+             <motion.h1
+             variants={variantsObj}
+               initial="hidden"
+               animate="visible"
+             >Become one of Us !🤩</motion.h1>
+             <AuthBox />
         </div>
              
-        <AuthBox />
+        
     </div>
   </>
   )

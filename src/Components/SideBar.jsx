@@ -1,25 +1,41 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdHomeFilled } from "react-icons/md";
 import { GrProjects } from "react-icons/gr";
 import { GiInspiration } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FaAnglesRight } from "react-icons/fa6";
+import {motion} from "motion/react"
+import { variantsObj } from "../Containers/Projects";
+import SignUpPopUp from "./SignUpPopUp";
+import { DataContext } from "../App";
+import { useSelector } from "react-redux";
 
 const SideBar = () => {
   const [isSideBarOpen , setIsSideBarOpen] =  useState(true);
+ const ctx = useContext(DataContext);
+//  console.log(ctx);
  
   return (
- <div className={`bg-[#1E1F26] ${isSideBarOpen ?"w-[15%]" : "w-[2%] " } h-[100vh] relative transition duration-300 ease-in-out  `}>
+<>
+
+<div className={`bg-[#1E1F26] ${isSideBarOpen ?"w-[15%]" : "w-[2%] " } h-[100vh] relative transition duration-300 ease-in-out  `}>
      <div className={`${isSideBarOpen ? "block" : "hidden"}`}>
       <div className="w-full grid place-items-center py-[1rem] h-[60px] ">
-        <img
+        <motion.img
+        variants={variantsObj}
+        initial="hidden"
+        animate="visible"
           className="w-[180px]"
           src="https://assets.codepen.io/t-1/codepen-wordmark-white.png"
           alt=""
         />
       </div>
-      <div className="flex h-[15vh] flex-col gap-2 items-center justify-center">
+      <motion.div 
+       variants={variantsObj}
+       initial="hidden"
+       animate="visible"
+      className="flex h-[15vh] flex-col gap-2 items-center justify-center">
         <code className="text-[grey] ">Try our online Editor</code>
 
         <Link to={"/pen"}
@@ -33,15 +49,21 @@ const SideBar = () => {
             Start Coding
           </button>
         </Link>
-      </div>
+      </motion.div>
 
-    <div className="w-full grid place-items-center h-[13vh]">
+    <motion.div 
+     variants={variantsObj}
+     initial="hidden"
+     animate="visible"
+    className="w-full grid place-items-center h-[13vh]">
     <div className="text-[#8f8f8f] w-[60%]   flex flex-col gap-5  ">
         <Link to={"/home/trending"} className=" w-full flex items-center justify-start gap-3 hover:text-white cursor-pointer">
           <MdHomeFilled className="text-xl" />
           <p  className="text-[1rem]"> Home</p>
         </Link>
         <Link to={"/your_projects"}    className=" w-full flex items-center justify-start gap-3  hover:text-white cursor-pointer ">
+         
+        
           <GrProjects className="text-xl" />
           <p className="text-[1rem]">Your Projects</p>
         </Link>
@@ -50,7 +72,7 @@ const SideBar = () => {
           <p className="text-[1rem]">Inspirations</p>
         </Link> */}
       </div>
-    </div>
+    </motion.div>
 
   
     </div>
@@ -62,6 +84,7 @@ const SideBar = () => {
      <FaAnglesRight  className="text-[#d8d8d8] "/>}
     </div>
  </div>
+</>
   );
 };
 

@@ -1,25 +1,30 @@
 import React from 'react'
 import hero from "../assets/hero.png"
 import {easeInOut, motion, stagger} from "motion/react"
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
+
+export const variantsObj = {
+  hidden : {
+    y : -30,
+    opacity : 0
+  },
+  visible :{
+    y :0 ,
+    opacity : 1,
+    transition :{
+      duration : 1,
+      ease : easeInOut,
+     
+    },
+ 
+  }
+}
 
 const Projects = () => {
 
-  const variantsObj = {
-    hidden : {
-      y : -30,
-      opacity : 0
-    },
-    visible :{
-      y :0 ,
-      opacity : 1,
-      transition :{
-        duration : 1,
-        ease : easeInOut,
-       
-      },
-   
-    }
-  }
+ const stateIsLoggedIn = useSelector(state => state.codepenData.isLoggedIn);
 
   return (
     <div className='bg-[#131417] w-full py-6  h-[91%] text-white'>
@@ -44,7 +49,11 @@ const Projects = () => {
             </div>
            </div>
            <p  className='leading-relaxed'>CodePen is a <strong>social development</strong> environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
-           <button className='w-[150px] hover:shadow-[0px_0px_10px_green] my-3 h-[45px] rounded bg-emerald-500 hover:bg-emerald-700'>Sign Up for Free</button>
+        {
+          stateIsLoggedIn ? null :   <motion.button whileTap={{scale:0.9}} className='w-[fit-content]'>
+          <Link to="/home/authentication" className='grid place-items-center w-[150px] hover:shadow-[0px_0px_10px_green] my-3 h-[45px] rounded bg-emerald-500 hover:bg-emerald-700'>Sign Up for Free</Link>
+          </motion.button>
+        }
        </motion.div>
        <div className='w-[50%]'>
              <motion.img  variants={variantsObj}

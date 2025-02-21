@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initData = {
+    isLoggedIn : false,
     userData : {
 
     }
+
 }
 
 const slice = createSlice({
@@ -12,9 +14,12 @@ const slice = createSlice({
     reducers :{
         addUserData(state ,action){
          state.userData = action.payload
+        },
+        loggedIn(state , action) {
+           state.isLoggedIn = action.payload
         }
     }
 })
 
 export const codepenReducers = slice.reducer;
-export const {addUserData} = slice.actions;
+export const {loggedIn,addUserData} = slice.actions;

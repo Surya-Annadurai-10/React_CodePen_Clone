@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -8,10 +8,11 @@ import Auth from './Containers/Auth'
 import Projects from './Containers/Projects'
 import YourProjects from './Containers/YourProjects'
 import PenEditor from './Containers/penEditor'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 import { store } from './store'
 
 
+export const DataContext = createContext();
 
 const router = createBrowserRouter([
  {
@@ -42,13 +43,18 @@ const router = createBrowserRouter([
 ])
  
 function App() {
-
-
+  const [showSignUpPopUp , setShowSignUpPopUp] = useState(true);
+  const [routeLink , setRouteLink] = useState("/home/authentication")
+  const [isLoading , setIsLoading] = useState(false);
+ 
+  
   return (
     <>
-     <Provider store={store}>
+    <DataContext.Provider value={{showSignUpPopUp,setShowSignUpPopUp}}>
+    <Provider store={store}>
        <RouterProvider router={router} />
      </Provider>
+    </DataContext.Provider>
     </>
   )
 }

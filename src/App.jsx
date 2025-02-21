@@ -7,7 +7,7 @@ import Layout from './Containers/Layout'
 import Auth from './Containers/Auth'
 import Projects from './Containers/Projects'
 import YourProjects from './Containers/YourProjects'
-import PenEditor from './Containers/penEditor'
+import PenEditor from './Containers/PenEditor'
 import { Provider, useDispatch } from 'react-redux'
 import { store } from './store'
 

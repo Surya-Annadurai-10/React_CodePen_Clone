@@ -7,9 +7,10 @@ import Layout from './Containers/Layout'
 import Auth from './Containers/Auth'
 import Projects from './Containers/Projects'
 import YourProjects from './Containers/YourProjects'
-import PenEditor from './Containers/PenEditor'
+
 import { Provider, useDispatch } from 'react-redux'
 import { store } from './store'
+import PenEditor from './Containers/Pen'
 
 
 export const DataContext = createContext();
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
  } ,
  {
   path : "/pen",
-  element : <PenEditor />
+  element : <Pen />
  },
  {
   path : "",

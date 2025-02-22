@@ -10,7 +10,7 @@ import YourProjects from './Containers/YourProjects'
 
 import { Provider, useDispatch } from 'react-redux'
 import { store } from './store'
-import PenEditor from './Containers/Pen'
+import Pen from './Containers/Pen'
 
 
 export const DataContext = createContext();

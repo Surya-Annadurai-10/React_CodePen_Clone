@@ -28,7 +28,7 @@ const Header = () => {
       }
   },[stateIsLoggedIn])
 
-  console.log(stateUserData.photoURL);
+  // console.log(stateUserData.photoURL);
   
    return (
     <div className=' flex justify-between px-10 items-center w-full h-[9vh] bg-[#000000]'>

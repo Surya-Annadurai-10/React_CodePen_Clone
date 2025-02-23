@@ -48,6 +48,20 @@ function App() {
   const [routeLink , setRouteLink] = useState("/home/authentication")
   const [isLoading , setIsLoading] = useState(false);
  
+
+
+      useEffect(() =>{
+        const fetchData = async() =>{
+          const projectsRef = collection(firestore , "projects")
+          try {
+            const res = await getDocs(projectsRef);
+            console.log(res.data());
+          } catch (error) {
+           
+          }
+        }
+      },[])
+
   
   return (
     <>

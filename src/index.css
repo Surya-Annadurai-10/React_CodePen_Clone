@@ -19,7 +19,7 @@
 .handle {
   width: 0px;
   background: rgb(50, 49, 49);
-  cursor: col-resize;
+  cursor:col-resize;
 }
 
 .hor_handle{
@@ -36,11 +36,19 @@
 
 ::-webkit-scrollbar-thumb{
   border-radius: 6px;
-  background-color: #212121;
+  background-color: #888888;
   width: 10px;
 }
 
 ::-webkit-scrollbar-track{
   background-color: #373737;
   height: 10px;
+}
+
+.pin{
+  display: none;
+}
+
+.hoverPin:hover .pin{
+   display: block;
 }

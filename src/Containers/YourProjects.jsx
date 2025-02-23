@@ -1,19 +1,23 @@
 import React, { useContext, useEffect } from 'react'
 import { DataContext } from '../App';
 import SideBar from '../Components/SideBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SignUpPopUp from '../Components/SignUpPopUp';
 import { useNavigate } from 'react-router-dom';
 import { addUserData, loggedIn } from '../slices/slice';
+import ProjectCard from '../Components/ProjectCard';
 
 const YourProjects = () => {
 const ctx = useContext(DataContext);
-console.log(ctx);
+// console.log(ctx);
 
-
+const dispatch = useDispatch();
 
 const stateIsLoggedIn = useSelector(state => state.codepenData.isLoggedIn);
-console.log("stateIsLoggedIn" , stateIsLoggedIn);
+const stateProjects = useSelector(state => state.codepenData.projects);
+const statePinnedProjects = useSelector(state => state.codepenData.pinned);
+// console.log("stateIsLoggedIn" , stateIsLoggedIn);
+// console.log("stateProjects" , stateProjects);
 
 const navigate = useNavigate();
 
@@ -33,8 +37,21 @@ const navigate = useNavigate();
     <div>
       {
         stateIsLoggedIn ? 
-        <div>
-          <h1>Your Projects</h1>
+        <div className='w-full h-[91vh] p-6 bg-[#131417] text-white overflow-y-scroll scroll-smooth'>
+          <h1 className='mb-4 font-bold text-xl'>Your Projects</h1>
+
+         <div className='flex flex-wrap items-center justify-start gap-3'>
+         {
+            statePinnedProjects.map((ele) =>{
+              return <ProjectCard key={ele.id} {...ele} projectData={{...ele}} pinned={true} background={true} />
+            })
+          }
+         {
+            stateProjects.map((ele) =>{
+              return <ProjectCard key={ele.id} {...ele} />
+            })
+          }
+         </div>
         </div>
          : 
    <>

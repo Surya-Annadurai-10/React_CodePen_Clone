@@ -4,7 +4,9 @@ import Header from '../Components/Header'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from '../Components/Footer'
 import { useDispatch } from 'react-redux'
-import { addUserData, loggedIn } from '../slices/slice'
+import { addProjects, addUserData, initialRender, initialRenderToPinned, loggedIn } from '../slices/slice'
+import { collection, getDocs } from 'firebase/firestore'
+import { firestore } from '../firebase'
 
 const Layout = () => {
 
@@ -21,6 +23,41 @@ const Layout = () => {
         dispatch(loggedIn(false))
         navigate("/home/trending")
       };
+    },[])
+
+
+    useEffect(() =>{
+      const fetchData = async() =>{
+        const projectsRef = collection(firestore, "projects")
+        const pinnedProjectsRef = collection(firestore, "pinned")
+        try {
+          const res = await getDocs(projectsRef);
+          const mappedData = res.docs.map(docs =>{
+            return docs.data();
+          })
+          dispatch(initialRender(mappedData));
+          
+        } catch (error) {
+         console.log(error);
+         
+        }
+
+        try {
+          const res = await getDocs(pinnedProjectsRef);
+          const mappedData = res.docs.map(docs =>{
+            return docs.data();
+          })
+          dispatch(initialRenderToPinned(mappedData));
+          
+        } catch (error) {
+         console.log(error);
+         
+        }
+      }
+
+      fetchData();
+
+
     },[])
 
   return (

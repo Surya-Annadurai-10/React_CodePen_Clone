@@ -43,9 +43,12 @@ const slice = createSlice({
              
             state.projects.push(indexValue)
             state.pinned.splice(index , 1)
+        },
+        LoggedOut(state, action){
+          state.isLoggedIn = action.payload
         }
     }
 })
 
 export const codepenReducers = slice.reducer;
-export const {initialRenderToPinned,UnpinProject,pinProject,deleteProject,initialRender,addProjects,loggedIn,addUserData} = slice.actions;
+export const {LoggedOut,initialRenderToPinned,UnpinProject,pinProject,deleteProject,initialRender,addProjects,loggedIn,addUserData} = slice.actions;

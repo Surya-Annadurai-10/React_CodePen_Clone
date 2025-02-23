@@ -3,7 +3,7 @@ import SideBar from '../Components/SideBar'
 import Header from '../Components/Header'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from '../Components/Footer'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addProjects, addUserData, initialRender, initialRenderToPinned, loggedIn } from '../slices/slice'
 import { collection, getDocs } from 'firebase/firestore'
 import { firestore } from '../firebase'
@@ -12,6 +12,7 @@ const Layout = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const stateIsLoggedIn = useSelector(state => state.codepenData.isLoggedIn);
 
     useEffect(() =>{
       let user = JSON.parse(localStorage.getItem("userData"))
@@ -55,7 +56,9 @@ const Layout = () => {
         }
       }
 
-      fetchData();
+      if(stateIsLoggedIn){
+        fetchData()
+      }
 
 
     },[])

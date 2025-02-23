@@ -119,7 +119,7 @@ const ProjectCard = (props) => {
    <>
   <div className="relative">
   <ToastContainer />
-   <div onClick={() => handleProject(props.id)} className={`w-[330px] h-[330px] flex flex-col items-start hoverPin justify-center gap-2 ${props.background ?`bg-[#1c1d3c] border border-[#666a94]` :`bg-[#282934]`} p-4 rounded-md`}>
+   <div onClick={() => handleProject(props.id)} className={`w-[330px] h-[330px] flex flex-col items-start hoverPin justify-center gap-2 ${props.background ?`bg-[#38384b] ` :`bg-[#282934]`} p-4 rounded-md`}>
       <div className="bg-[white]   h-[85%] w-full rounded-md">
         <iframe
           srcDoc={props.result}

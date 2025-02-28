@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { addProjects, addUserData, loggedIn } from "../slices/slice";
@@ -16,6 +16,8 @@ import { FaCheck } from "react-icons/fa6";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../firebase";
 import { toast, ToastContainer } from "react-toastify";
+import { DataContext } from "../App";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 
 const PenEditor = () => {
@@ -23,15 +25,46 @@ const PenEditor = () => {
   // const location  = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [html, setHtml] = useState("");
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
-  const [result, setResult] = useState("");
   const stateIsLoggedIn = useSelector((state) => state.codepenData.isLoggedIn);
   const stateUserData = useSelector((state) => state.codepenData.userData);
   const [isEditTitle, setIsEditTitle] = useState(false);
   const editRef = useRef(null);
   const [projectTitle, setProjectTitle] = useState("Untitled");
+  const [html, setHtml] = useState("");
+  const [css, setCss] = useState(" ");
+  const [js, setJs] = useState(" ");
+  const [result, setResult] = useState (" ");
+  const ctx = useContext(DataContext);
+
+
+  console.log(html , css,js,projectTitle , result);
+
+useEffect(() =>{
+  if(ctx.clickedData){
+    setHtml(ctx.clickedData.html? ctx.clickedData.html : "")
+    setCss(ctx.clickedData.css ? ctx.clickedData.css : "")
+    setJs(ctx.clickedData.js ? ctx.clickedData.js : "");
+    setResult(ctx.clickedData.result ? ctx.clickedData.result :"");
+    setProjectTitle(ctx.clickedData.title ? ctx.clickedData.title : "Untitled");
+     console.log(ctx.clickedData == true);
+     
+  }
+
+
+},[ctx.clickedData])
+
+
+// useEffect(() =>{
+ 
+//   return ()=>{
+//     setHtml("")
+//     setCss("")
+//     setJs("");
+//     setResult("");
+//     setProjectTitle("Untitled");
+//   }
+// },[])
+
 
   useEffect(() => {
     if (isEditTitle) {
@@ -61,8 +94,8 @@ const PenEditor = () => {
       navigate("/home/trending");
     }
   }, []);
-  // console.log("params", id);
-  // console.log("location", location);
+  // console.log("params", result);
+  // console.log("location", id);
 
 
   const handleSave = async() =>{
@@ -80,6 +113,7 @@ const PenEditor = () => {
 
     try {
       await setDoc(doc(firestore , "projects" , projectDetails.id) , projectDetails)
+      // await setDoc(doc(firestore , "trending" , projectDetails.id) , projectDetails)
         toast.success("Project Saved !", {
           position: "top-right",
           autoClose: 5000,
@@ -95,7 +129,7 @@ const PenEditor = () => {
       
         dispatch(addProjects(projectDetails))
         console.log("projectDetails" ,  projectDetails);
-        
+        navigate("/your_projects")
     } catch (error) {
        toast.error("Trouble in saving 😕!",{
         position: "top-right",
@@ -115,6 +149,11 @@ const PenEditor = () => {
     
   }
 
+  const handleNavigateToHome = () =>{
+    ctx.setClickedData({});
+    navigate("/home/trending");
+  }
+
   return (
     <>
     <ToastContainer />
@@ -128,10 +167,20 @@ const PenEditor = () => {
             animate="visible"
             className="flex text-white justify-center h-full  items-center gap-3"
           >
-            <Link to={"/home/trending"}>
+            <motion.div
+            // variants={variantsObj}
+            whileTap={{scale:0.9}}
+            >
+              <IoArrowBackCircleSharp 
+                onClick={handleNavigateToHome}
+                className="text-5xl text-emerald-500"
+              />
+            </motion.div>
+          
               <motion.div
                 whileTap={{ scale: 0.9 }}
                 className="overflow-hidden rounded-full"
+              
               >
                 <motion.img
                   className="w-[35px]"
@@ -139,7 +188,7 @@ const PenEditor = () => {
                   alt=""
                 />
               </motion.div>
-            </Link>
+       
             <div>
               <div className="flex justify-start items-center gap-2">
                <AnimatePresence>

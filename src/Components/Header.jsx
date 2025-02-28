@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { AnimatePresence, motion } from "motion/react";
 import { variantsObj } from "../Containers/Projects";
@@ -11,6 +11,9 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { LoggedOut } from "../slices/slice";
 import { IoIosArrowDown } from "react-icons/io";
+import { RiLayoutGridFill } from "react-icons/ri";
+import { MdCancel } from "react-icons/md";
+import { DataContext } from "../App";
 
 const Header = () => {
   // const stateIsLoggedIn = useSelector(state => state.codepenData.isLoggedIn)
@@ -19,21 +22,10 @@ const Header = () => {
   const [showOptions, setShowOptions] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (stateIsLoggedIn) {
-      toast.success("Login Successful !", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  }, [stateIsLoggedIn]);
+  const [showSearchOptions , setShowSearchOptions] = useState(false);
+  const ctx = useContext(DataContext);
+  const {pathname} = useLocation();
+ 
 
   const handleLogOutOptions = () => {
     setShowOptions(true);
@@ -44,7 +36,12 @@ const Header = () => {
     e.stopPropagation();
     try {
       await auth.signOut();
-      dispatch(LoggedOut(false));
+      dispatch(LoggedOut({
+        loggedIn : false,
+        userdata : {},
+        project : [],
+        pinned : []
+      }));
       localStorage.clear();
       navigate("/home/authentication");
     } catch (error) {
@@ -63,6 +60,17 @@ const Header = () => {
     setShowOptions(false);
   };
 
+  const handleSearchOptionClick = () =>{
+    navigate("/your_projects")
+    setShowSearchOptions(false)
+  }
+
+  const handleShowSearchCategory =() =>{
+    console.log(pathname)
+    if(pathname == "/home/trending") setShowSearchOptions(!showSearchOptions)
+  }
+ 
+
   // console.log(stateUserData.photoURL);
 
   return (
@@ -72,20 +80,67 @@ const Header = () => {
         variants={variantsObj}
         initial="hidden"
         animate="visible"
-        className="text-[#868CA0] flex items-center gap-2 justify-center text-xl  bg-[#252830]  w-[300px] h-[6vh] rounded"
+        className="text-[#868CA0] relative flex items-center gap-2 justify-center text-xl  bg-[#252830]  w-[300px] h-[6vh] rounded"
       >
         <FiSearch className="text-2xl" />
         <input
+        onFocus={handleShowSearchCategory}
+        value={ctx.searchValue}
+        onChange={(e) => ctx.setSearchValue(e.target.value) }
           type="text"
+          
           className="text-[#868CA0] w-[85%]  outline-0 border-0 rounded placeholder:text-[#868CA0] h-full"
           placeholder="Search..."
         />
+        {
+          showSearchOptions ? <motion.div  
+          variants={variantsObj}
+          initial="hidden"
+          animate={{opacity:1,y:0}}
+          transition={{duration:0.3}}
+          className="flex items-center justify-start px-3 py-2 gap-2 w-[100%] bg-[#1b1c20] shadow-[0px_0px_10px_black]  absolute top-[105%] left-20%">
+            
+            <motion.div
+            onClick={handleSearchOptionClick}
+            whileTap={{scale:0.9}}
+            className="flex cursor-pointer text-white px-2 py-1 items-center rounded bg-[#3d4259] justify-start gap-1">
+            <RiLayoutGridFill className="text-[13px]" />
+            <p className="text-[11px]">Projects</p>
+            </motion.div>
+
+            <MdCancel
+            onClick={()=>setShowSearchOptions(false)}
+            className="absolute left-[100%] cursor-pointer" />
+          </motion.div> : null
+        }
       </motion.div>
+    <div className="flex items-center justify-center gap-10">
+      <div 
+     id="gemini"
+      className=" w-[40px] h-[40px]  transition-all  hover:bg-[#ffffff] rounded-full relative">
+         <motion.img
+          animate={{
+             rotate : 360,
+            
+          }}
+          transition={{
+            duration:2,
+             repeat:Infinity,
+             ease : "linear"
+          }}
+
+          onClick={() =>navigate("/ask_ai")}
+         className="w-[100%] image "  src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" />
+         <p id="ask" className="bg-white ask  absolute w-[50px] text-center rounded top-[140%] ">Ask  AI </p>
+      
+      </div>
+
+      <div>
       {stateIsLoggedIn ? (
         <div className="relative flex items-center justify-center gap-3">
           <div>
             <img
-              className="w-[40px] rounded-md object-cover "
+              className="w-[40px] rounded-full object-cover "
               src={
                 stateUserData.photoURL
                   ? stateUserData.photoURL
@@ -167,6 +222,8 @@ const Header = () => {
           <ToastContainer />
         </motion.div>
       )}
+      </div>
+    </div>
     </div>
   );
 };

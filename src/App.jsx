@@ -7,10 +7,14 @@ import Layout from './Containers/Layout'
 import Auth from './Containers/Auth'
 import Projects from './Containers/Projects'
 import YourProjects from './Containers/YourProjects'
-
-import { Provider, useDispatch } from 'react-redux'
+import { StyledEngineProvider } from '@mui/material/styles';
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import { store } from './store'
 import Pen from './Containers/Pen'
+import { addPinnedProjects } from './slices/slice'
+import { collection, getDocs } from 'firebase/firestore'
+import { firestore } from './firebase'
+import Gemini from './Containers/Gemini'
 
 
 export const DataContext = createContext();
@@ -30,11 +34,15 @@ const router = createBrowserRouter([
       {
         path:"/your_projects",
         element :<YourProjects />
+      },
+      {
+        path:"/ask_ai",
+        element:<Gemini />
       }
     ]
  } ,
  {
-  path : "/pen",
+  path : "/pen/:id",
   element : <Pen />
  },
  {
@@ -47,27 +55,17 @@ function App() {
   const [showSignUpPopUp , setShowSignUpPopUp] = useState(true);
   const [routeLink , setRouteLink] = useState("/home/authentication")
   const [isLoading , setIsLoading] = useState(false);
- 
-
-
-      useEffect(() =>{
-        const fetchData = async() =>{
-          const projectsRef = collection(firestore , "projects")
-          try {
-            const res = await getDocs(projectsRef);
-            console.log(res.data());
-          } catch (error) {
-           
-          }
-        }
-      },[])
-
+const [isSideBarOpen , setIsSideBarOpen] =  useState(true);
+const [clickedData , setClickedData] = useState({});
+const [searchValue , setSearchValue] = useState("");
   
   return (
     <>
-    <DataContext.Provider value={{showSignUpPopUp,setShowSignUpPopUp}}>
+    <DataContext.Provider value={{searchValue,setSearchValue,clickedData,setClickedData,setIsSideBarOpen,isSideBarOpen,showSignUpPopUp,setShowSignUpPopUp}}>
     <Provider store={store}>
-       <RouterProvider router={router} />
+       <StyledEngineProvider injectFirst>
+         <RouterProvider router={router} />
+       </StyledEngineProvider>
      </Provider>
     </DataContext.Provider>
     </>

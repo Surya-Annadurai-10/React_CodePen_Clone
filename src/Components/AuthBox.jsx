@@ -26,18 +26,32 @@ const AuthBox = () => {
   const [alert , setAlert] = useState(false);
   const [alertMsg , setAlertMsg] = useState("");
   const navigate = useNavigate();
+  
 
   const handleLoginWithGoogle = async() =>{
         try {
             const res = await signInWithPopup(auth , googleAuthProvider)
-            console.log(res.user.providerData[0]);
+        
            let user = res.user.providerData[0];
             localStorage.setItem("userData" , JSON.stringify(user));
           
             await setDoc(doc(firestore,"userData" , user.uid) , user);
+            console.log(user);
             dispatch(addUserData(user))
             dispatch(loggedIn(true));
+            toast.success("Login Successful !" , {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light"
+            })
+          setTimeout(() =>{
             navigate("/home/trending")
+          },2000)
 
         } catch (error) {
              console.log("Error" , error);
@@ -56,11 +70,35 @@ const AuthBox = () => {
             await setDoc(doc(firestore , "userData" , user.uid) , user);
             dispatch(addUserData(user))
             dispatch(loggedIn(true));
+            toast.success("Login Successful !" , {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light"
+            })
+           setTimeout(() => {
             navigate("/home/trending")
+           }, 2000);
 
       
     } catch (error) {
       console.log("Error" , error);
+      if(error+"".includes("account-exists-with-different-credential")){
+          toast.error("Try with different Email" , {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          })
+      }
       
     }
   }
@@ -148,7 +186,9 @@ const createNewUser = async() =>{
      dispatch(loggedIn(true));
 
      await setDoc(doc(firestore , "userData" , user.uid) , user)
-     navigate("/home/trending")
+     setTimeout(() =>{
+      navigate("/home/trending")
+     },2000)
     } catch (error) {
       console.log(error);
       // console.log("Error" , error);
@@ -169,13 +209,13 @@ const createNewUser = async() =>{
   return (
   <>
 
-    
+
              
         <motion.div
         variants={variantsObj}
         initial="hidden"
         animate="visible"
-        className='bg-[#24252d] rounded-xl p-7 w-[340px]'>
+        className='bg-[#24252d] relative rounded-xl p-7 w-[340px]'>
              <div className='pb-5'>
                <p className='text-[12px]'>Email</p>
               <div   ref={emailInputRef} className='flex p-1.5 bg-white rounded'>
@@ -257,14 +297,14 @@ const createNewUser = async() =>{
                 <div className='h-[1px] w-[35%] bg-[#6f6f6f]'></div>
 
              </div>
-             <div >
+             <div  >
                 <motion.button whileTap={{scale:0.9}} onClick={handleLoginWithGithub} className='flex hover:bg-[#676767]  cursor-pointer w-full items-center justify-center gap-2 rounded bg-[#4e4e4e] text-white'>
                     <img className='w-[38px]' src="https://www.freeiconspng.com/thumbs/github-icon/github-icon-9.png" alt="" />
                      <p>Login with GitHub</p>
                 </motion.button>
-                
+                <ToastContainer />
              </div>
-             
+            
         </motion.div>
        
 

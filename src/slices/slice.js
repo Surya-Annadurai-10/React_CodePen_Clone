@@ -4,7 +4,9 @@ const initData = {
     isLoggedIn : false,
     userData : {},
     projects : [],
-    pinned :[]
+    pinned :[],
+    trending:[],
+    gemini :[]
 
 }
 
@@ -21,11 +23,17 @@ const slice = createSlice({
         addProjects(state , action) {
             state.projects.push(action.payload);
         },
+        addPinnedProjects(state, action){
+            state.pinned = [...action.payload];
+        },
         initialRender(state , action) {
              state.projects = [...action.payload];
         },
         initialRenderToPinned(state,action){
           state.pinned = [...action.payload]  
+        },
+        initialRenderToTrending(state , action){
+            state.trending = [...action.payload]
         },
         deleteProject(state, action){
           state.projects.splice(action.payload , 1);
@@ -44,11 +52,22 @@ const slice = createSlice({
             state.projects.push(indexValue)
             state.pinned.splice(index , 1)
         },
+        deleteFromPinned(state , action){
+           state.pinned.splice(action.payload , 1)
+        },
         LoggedOut(state, action){
-          state.isLoggedIn = action.payload
+          state.isLoggedIn = action.payload.loggedIn
+          // state.isLoggedIn : false,
+            state.userData = action.payload.userdata
+            state.projects =  action.payload.project
+            state.pinned =action.payload.pinned
+        },
+        geminiData(state , action){
+            state.gemini.push(action.payload);
         }
+
     }
 })
 
 export const codepenReducers = slice.reducer;
-export const {LoggedOut,initialRenderToPinned,UnpinProject,pinProject,deleteProject,initialRender,addProjects,loggedIn,addUserData} = slice.actions;
+export const {geminiData,deleteFromPinned,initialRenderToTrending,addPinnedProjects,LoggedOut,initialRenderToPinned,UnpinProject,pinProject,deleteProject,initialRender,addProjects,loggedIn,addUserData} = slice.actions;

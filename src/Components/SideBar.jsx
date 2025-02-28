@@ -12,15 +12,15 @@ import { DataContext } from "../App";
 import { useSelector } from "react-redux";
 
 const SideBar = () => {
-  const [isSideBarOpen , setIsSideBarOpen] =  useState(true);
+  
  const ctx = useContext(DataContext);
 //  console.log(ctx);
  
   return (
 <>
 
-<div className={`bg-[#1E1F26] ${isSideBarOpen ?"w-[15%]" : "w-[2%] " } h-[100vh] relative transition duration-300 ease-in-out  `}>
-     <div className={`${isSideBarOpen ? "block" : "hidden"}`}>
+<div className={`bg-[#1E1F26] ${ctx.isSideBarOpen ?"w-[15%]" : "w-[2%] " } h-[100vh] relative transition duration-300 ease-in-out  `}>
+     <div className={`${ctx.isSideBarOpen ? "block" : "hidden"}`}>
       <div className="w-full grid place-items-center py-[1rem] h-[60px] ">
         <motion.img
         variants={variantsObj}
@@ -38,7 +38,7 @@ const SideBar = () => {
       className="flex h-[15vh] flex-col gap-2 items-center justify-center">
         <code className="text-[grey] ">Try our online Editor</code>
 
-        <Link to={"/pen"}
+       <Link to={"/pen/new_project"}
           style={{
             background:
               "linear-gradient(115deg, #4fcf70, #fad648, #a767e5, #12bcfe, #44ce7b)",
@@ -77,10 +77,10 @@ const SideBar = () => {
   
     </div>
     <div
-    onClick={()=> setIsSideBarOpen(!isSideBarOpen)}
+    onClick={()=> ctx.setIsSideBarOpen(!ctx.isSideBarOpen)}
     
-    className="absolute top-1 hover:bg-[#292b34] -right-6 bg-[#1E1F26] w-[30px] h-[30px] grid place-items-center rounded-xl">
-    {isSideBarOpen ? <FaAnglesLeft className="text-[#d8d8d8] " /> :
+    className="absolute top-1 hover:bg-[#292b34] z-10 -right-6 bg-[#1E1F26] w-[30px] h-[30px] grid place-items-center rounded-xl">
+    {ctx.isSideBarOpen ? <FaAnglesLeft className="text-[#d8d8d8] " /> :
      <FaAnglesRight  className="text-[#d8d8d8] "/>}
     </div>
  </div>

@@ -29,7 +29,7 @@ const stateUserData = useSelector(state => state.codepenData.userData);
               </div>
           
 
-              <div className="w-[100%] flex  items-start">
+              <div className="w-[100%] flex gap-2  items-start">
                <div className="w-[8%]">
                <img
                   className="w-[40px] image "

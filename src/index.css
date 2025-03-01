@@ -109,3 +109,12 @@ html{
     background-position: 800px 0;
   }
 }
+
+.colorized {
+  width:fit-content;
+  background: linear-gradient(to right, #4285f4, #d96570);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: bold; 
+  -webkit-text-fill-color: transparent;
+}

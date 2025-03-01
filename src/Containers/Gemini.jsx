@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { MdSend } from "react-icons/md";
 import { useAi } from "../config/GeminiConfig";
 import ReactMarkdown from "react-markdown";
-import { useTypewriter } from "react-simple-typewriter";
+import { Cursor, Typewriter, useTypewriter } from "react-simple-typewriter";
 import { useDispatch, useSelector } from "react-redux";
 import { geminiData } from "../slices/slice";
 import { doc, setDoc } from "firebase/firestore";
@@ -25,23 +25,22 @@ const Gemini = () => {
   const [inputArr, setInputArr] = useState([]);
   // const [initial , setIntial] = useState(false);
   const stateUserData = useSelector((state) => state.codepenData.userData);
+ let userName = stateUserData.displayName
   const dispatch = useDispatch();
   const stateGemini = useSelector((state) => state.codepenData.gemini);
   const [showLoading, setShowLoading] = useState(false);
   const [typing, setTyping] = useState(false);
+  const [showUserName, setShowUserName] = useState(false);
   const [text, setText] = useState("");
   const chatContainerRef = useRef(null);
-  // const [text] = useTypewriter({
-  //   words: [result],
-  //   loop: 1,
-  //   typeSpeed:1,
-  //   deleteSpeed :0,
-  //   // onLoopDone: () =>{
-  //   //   if(result.length > 0){
-  //   //     console.log("typing done");
 
-  //   //   }
-  //   // }
+  // const [texted] = useTypewriter({
+  //   words: [`Surya,`],
+  //   loop: 0,
+  //   typeSpeed:150,
+  //   deleteSpeed:150
+    
+  
   // });
 
   useEffect(() => {
@@ -77,6 +76,7 @@ const Gemini = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // inputRef.current.value = "";
+    setShowUserName(true);
     setInput(inputRef.current.value);
     inputRef.current.value = "";
   };
@@ -154,7 +154,7 @@ const Gemini = () => {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      console.log("height:", chatContainerRef.current.scrollHeight);
+      // console.log("height:", chatContainerRef.current.scrollHeight);
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
@@ -198,20 +198,47 @@ const Gemini = () => {
           expand ? `w-[20%]` : `w-[6%]`
         } h-[100%] absolute left-0 bg-[#1c1c23]`}
       >
-        <div className="flex items-start pl-6 pt-5 justify-center flex-col gap-15">
+        <motion.div 
+           initial={{
+            y:-20,
+            opacity: 0
+          }}
+
+          animate ={{
+            y:0,
+            opacity:1,
+            transition:{
+              duration : 1,
+              ease:"easeInOut"
+            }
+          }}
+        className="flex items-start pl-6 pt-5 justify-center flex-col gap-15">
           <IoMenu
             onClick={() => setExpand(!expand)}
             className="text-3xl text-[grey]"
           />
-          <div
+          <motion.div
+             initial={{
+              y:-20,
+              opacity: 0
+            }}
+  
+            animate ={{
+              y:0,
+              opacity:1,
+              transition:{
+                duration : 1,
+                ease:"easeInOut"
+              }
+            }}
             className={`flex items-center justify-center gap-1 px-2 py-1 ${
-              expand ? `bg-[#353535] ` : ``
+              expand ? `bg-[#353535] ` : null
             } rounded-3xl`}
           >
             <MdAddCircle className="text-3xl text-[#adadad]" />
             {expand ? <h1 className="text-[#b3b3b3]">New Chat</h1> : null}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {expand ? (
           <div className="pl-6 pt-5">
@@ -235,8 +262,58 @@ const Gemini = () => {
       <div onClick={()=> setExpand(false)} className={`relative w-[94%]  h-[100%]`}>
         <div
           ref={chatContainerRef}
-          className="w-[60%] leading-7.5 text-[#d0d0d0] h-[75%] mt-12   m-auto overflow-y-scroll p-5 markdown"
+          className="w-[60%] leading-7.5 text-[#d0d0d0] h-[75%] mt-12 relative   m-auto overflow-y-scroll p-5 markdown"
         >
+
+       {
+        showUserName ? null :  <div className="flex  w-[100%] h-[100%]  justify-start gap-6 flex-col ">
+          <motion.span 
+          initial={{
+            x:100,
+            opacity: 0
+          }}
+
+          animate ={{
+            x:0,
+            opacity:1,
+            transition:{
+              duration : 1,
+              ease:"easeInOut"
+            }
+          }}
+         
+          className="font-bold   text-4xl colorized">Hello   
+            <Typewriter
+            words={[` ${userName},`]}
+            loop={0}
+            cursor ={true}
+            cursorStyle='|'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+          
+            
+          />
+          </motion.span>
+     
+          <motion.p
+             initial={{
+              x:100,
+              opacity: 0
+            }}
+  
+            animate ={{
+              x:0,
+              opacity:1,
+              transition:{
+                duration : 1,
+                ease:"easeInOut"
+              }
+            }}
+           className="text-5xl">How Can i Help you Today !</motion.p>
+        </div>
+       }
+
           <div className="w-[100%]">
             {typing ? null : (
               <>
@@ -262,7 +339,7 @@ const Gemini = () => {
                     />
                   </div>
                   <div>
-                    <h1>{input}</h1>
+                    <h1 className="font-bold capitalize">{input}</h1>
                   </div>
                 </div>
                 {showLoading ? (
@@ -289,7 +366,20 @@ const Gemini = () => {
           ) : null}
         </div>
 
-        <form
+        <motion.form
+           initial={{
+            y:-50,
+            opacity: 0
+          }}
+
+          animate ={{
+            y:0,
+            opacity:1,
+            transition:{
+              duration : 1,
+              ease:"easeInOut"
+            }
+          }}
           onSubmit={handleSubmit}
           className="w-[60%] flex items-center justify-center absolute bottom-[8%] left-[20%]  h-[60px] bg-[#2a2929] rounded-4xl"
         >
@@ -302,7 +392,7 @@ const Gemini = () => {
           <button>
             <MdSend className="text-2xl text-[#9b9a9a]" />
           </button>
-        </form>
+        </motion.form>
       </div>
     </div>
   );

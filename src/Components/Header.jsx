@@ -67,7 +67,7 @@ const Header = () => {
 
   const handleShowSearchCategory =() =>{
     console.log(pathname)
-    if(pathname == "/home/trending") setShowSearchOptions(!showSearchOptions)
+    setShowSearchOptions(!showSearchOptions)
   }
  
 
@@ -98,7 +98,7 @@ const Header = () => {
           initial="hidden"
           animate={{opacity:1,y:0}}
           transition={{duration:0.3}}
-          className="flex items-center justify-start px-3 py-2 gap-2 w-[100%] bg-[#1b1c20] shadow-[0px_0px_10px_black]  absolute top-[105%] left-20%">
+          className="flex items-center z-40 justify-start px-3 py-2 gap-2 w-[100%] bg-[#1b1c20] shadow-[0px_0px_10px_black]  absolute top-[105%] left-20%">
             
             <motion.div
             onClick={handleSearchOptionClick}
@@ -115,29 +115,57 @@ const Header = () => {
         }
       </motion.div>
     <div className="flex items-center justify-center gap-10">
-      <div 
+      <motion.div 
+         initial={{
+          y:-20,
+          opacity: 0
+        }}
+
+        animate ={{
+          y:0,
+          opacity:1,
+          transition:{
+            duration : 1,
+            ease:"easeInOut"
+          }
+        }}
      id="gemini"
       className=" w-[40px] h-[40px]  transition-all  hover:bg-[#ffffff] rounded-full relative">
          <motion.img
           animate={{
              rotate : 360,
-            
+             
           }}
           transition={{
             duration:2,
              repeat:Infinity,
-             ease : "linear"
+             ease : "linear",
+             delay:1.2
           }}
 
           onClick={() =>navigate("/ask_ai")}
          className="w-[100%] image "  src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" />
          <p id="ask" className="bg-white ask  absolute w-[50px] text-center rounded top-[140%] ">Ask  AI </p>
       
-      </div>
+      </motion.div>
 
       <div>
       {stateIsLoggedIn ? (
-        <div className="relative flex items-center justify-center gap-3">
+        <motion.div
+        initial={{
+          y:-20,
+          opacity: 0
+        }}
+
+        animate ={{
+          y:0,
+          opacity:1,
+          transition:{
+            duration : 1,
+            ease:"easeInOut"
+          }
+        }}
+        className="relative flex items-center justify-center gap-3">
           <div>
             <img
               className="w-[40px] rounded-full object-cover "
@@ -204,7 +232,7 @@ const Header = () => {
             ) : null}
           </AnimatePresence>
           <ToastContainer />
-        </div>
+        </motion.div>
       ) : (
         <motion.div
           variants={variantsObj}

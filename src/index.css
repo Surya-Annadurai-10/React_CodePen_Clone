@@ -57,13 +57,19 @@ html{
    display: block;
 }
 
-.trending,.markdown::-webkit-scrollbar{
+.markdown::-webkit-scrollbar{
   display: none;
 }
 
 .message::-webkit-scrollbar{
  display: none;
 }
+
+.trending::-webkit-scrollbar{
+  display: none;
+}
+
+
 
 
 

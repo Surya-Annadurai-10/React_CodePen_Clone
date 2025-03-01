@@ -9,6 +9,7 @@ import ProjectCard from '../Components/ProjectCard';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 
+
 const YourProjects = () => {
 const ctx = useContext(DataContext);
 // console.log(ctx);
@@ -93,7 +94,9 @@ useEffect(() =>{
     <div>
       {
         stateIsLoggedIn ? 
-        <div className='w-full h-[87vh] p-6 bg-[#131417] text-white overflow-y-scroll scroll-smooth'>
+        <motion.div
+      
+        className='w-full h-[87vh] p-6 bg-[#131417] text-white overflow-y-scroll scroll-smooth'>
           <h1 className='mb-4 font-bold text-xl'>Your Projects</h1>
 
          <div className='flex m-auto w-[90%] flex-wrap items-center  justify-center gap-4'>
@@ -110,7 +113,7 @@ useEffect(() =>{
             })
           }
          </div>
-        </div>
+        </motion.div>
          : 
    <>
     {

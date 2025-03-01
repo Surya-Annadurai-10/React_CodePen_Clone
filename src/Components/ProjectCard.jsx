@@ -9,6 +9,7 @@ import { firestore } from "../firebase";
 import { RiUnpinFill } from "react-icons/ri";
 import { DataContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import {motion} from "motion/react"
 
 const ProjectCard = (props) => {
   const stateIsLoggedIn = useSelector((state) => state.codepenData.isLoggedIn);
@@ -19,7 +20,7 @@ const ProjectCard = (props) => {
   const dispatch = useDispatch();
   const ctx = useContext(DataContext);
   const navigate = useNavigate();
-  // console.log("props",props);
+  console.log("props",props);
   
 
   const handleProject =(id) =>{
@@ -166,7 +167,14 @@ const handleUnPin = async(id,e) =>{
 
   return (
    <>
-  <div onClick={() => handleProjectBoxClick(props.id)} className=" cursor-pointer relative">
+  <motion.div
+  whileHover={{scale:1.05,
+    transition:{
+      duration:0.2,
+      ease:"easeInOut"
+    }
+  }}
+  onClick={() => handleProjectBoxClick(props.id)} className=" cursor-pointer relative">
   <ToastContainer />
    <div onClick={() => handleProject(props.id)} className={`w-[330px] h-[330px] flex flex-col items-start hoverPin justify-center gap-2 ${props.background ?`bg-[#27273c] ` :`bg-[#1E1F26]`} p-4 rounded-md`}>
       <div className="bg-[white]   h-[85%] w-full rounded-md">
@@ -251,7 +259,7 @@ const handleUnPin = async(id,e) =>{
       }
       </div>
     </div>
-  </div>
+  </motion.div>
    </>
   );
 };

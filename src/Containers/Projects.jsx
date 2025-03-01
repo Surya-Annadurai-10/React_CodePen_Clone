@@ -117,11 +117,13 @@ const handleRightScroll = ()=>{
         <h1>Trending</h1>
        </div>
       {
-        stateTrending.length != 0 ?  <div className='overflow-hidden relative w-[95.3%] m-auto p-4 pr-9  px-10'>
-        <div ref={containerRef} className='trending w-full flex items-center justify-start gap-2  overflow-x-scroll scroll-smooth '>
+        stateTrending.length != 0 ?  <div className='overflow-hidden  relative w-[95.3%] m-auto p-4 pr-9  px-10'>
+        <div ref={containerRef} className=' trending flex w-full items-center  justify-start gap-6  overflow-x-scroll scroll-smooth'>
           {
+            // trending w-full flex items-center  justify-start gap-2  overflow-x-scroll scroll-smooth 
            stateTrending.map((ele,i) =>{
             return <ProjectCard key={ele.id} {...ele} trending={false} />
+            // return <div key={i} className='text-black'>hellow</div>
            })
           }
       </div>

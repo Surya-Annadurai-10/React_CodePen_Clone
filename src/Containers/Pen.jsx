@@ -112,8 +112,8 @@ useEffect(() =>{
 
 
     try {
-      await setDoc(doc(firestore , "projects" , projectDetails.id) , projectDetails)
-      // await setDoc(doc(firestore , "trending" , projectDetails.id) , projectDetails)
+      // await setDoc(doc(firestore , "projects" , projectDetails.id) , projectDetails)
+      await setDoc(doc(firestore , "trending" , projectDetails.id) , projectDetails)
         toast.success("Project Saved !", {
           position: "top-right",
           autoClose: 5000,

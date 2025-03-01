@@ -79,7 +79,14 @@ const handleRightScroll = ()=>{
 <>
 
 <div className='bg-[#131417] w-full py-6  h-[90.5%] text-white overflow-y-scroll'>
-       <div className='w-[77%] gap-3  m-auto flex items-center justify-between '>
+     <motion.div
+     variants={variantsObj}
+     initial="hidden"
+     animate="visible"
+     className='w-[100%] lg:hidden h-[50px] grid place-items-center'>
+      <img className='w-[170px]' src="https://assets.codepen.io/t-1/codepen-wordmark-white.png" alt="" />
+     </motion.div>
+       <div className='w-[77%] flex-col-reverse flex    gap-3  m-auto lg:flex lg:flex-row items-center justify-between '>
        <motion.div
        variants ={variantsObj}
         initial ="hidden"
@@ -87,26 +94,26 @@ const handleRightScroll = ()=>{
            transition={{
          delayChildren : 0.5
            }}
-       className='w-[48%] flex flex-col gap-4 ' >
+       className='lg:w-[48%] md:w-[100%] md:mb-5  flex flex-col gap-4 ' >
            <div 
            
           
-           className='flex gap-5 py-2 items-start'>
+           className='flex lg:gap-5 gap-2 py-2 items-start'>
             <div>
-              <img className='w-[100px]' src="https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png" alt="" />
+              <img className='lg:w-[100px] lg:block hidden' src="https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png" alt="" />
             </div>
             <div>
-              <h1 className='text-4xl leading-snug font-bold'>The best place to build, test, and discover front-end code.</h1>
+              <h1 className='lg:text-4xl lg:text-left text-center text-3xl leading-snug font-bold'>The best place to build, test, and discover front-end code.</h1>
             </div>
            </div>
-           <p  className='leading-relaxed'>CodePen is a <strong>social development</strong> environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
+           <p  className='leading-relaxed lg:text-left text-center'>CodePen is a <strong>social development</strong> environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
         {
           stateIsLoggedIn ? null :   <motion.button whileTap={{scale:0.9}} className='w-[fit-content]'>
           <Link to="/home/authentication" className='grid place-items-center w-[150px] hover:shadow-[0px_0px_10px_green] my-3 h-[45px] rounded bg-emerald-500 hover:bg-emerald-700'>Sign Up for Free</Link>
           </motion.button>
         }
        </motion.div>
-       <div className='w-[50%]'>
+       <div className='lg:w-[50%] w-[100%]'>
              <motion.img  variants={variantsObj}
              initial="hidden"
              animate="visible"
@@ -118,7 +125,7 @@ const handleRightScroll = ()=>{
        </div>
       {
         stateTrending.length != 0 ?  <div className='overflow-hidden  relative w-[95.3%] m-auto p-4 pr-9  px-10'>
-        <div ref={containerRef} className=' trending flex w-full items-center  justify-start gap-6  overflow-x-scroll scroll-smooth'>
+        <div ref={containerRef} className=' trending lg:flex-row flex-col md:flex-row flex  w-full items-center  justify-start gap-6  overflow-x-scroll scroll-smooth'>
           {
             // trending w-full flex items-center  justify-start gap-2  overflow-x-scroll scroll-smooth 
            stateTrending.map((ele,i) =>{
@@ -127,11 +134,11 @@ const handleRightScroll = ()=>{
            })
           }
       </div>
-      <button onClick={handleLeftScroll} className='bg-white shadow-[0px_0px_10px_grey] text-4xl top-[45%] left-2 text-black rounded-full absolute'>
+      <button onClick={handleLeftScroll} className='bg-white shadow-[0px_0px_10px_grey] hidden lg:block md:block text-4xl top-[45%] left-2 text-black rounded-full absolute'>
         <MdKeyboardArrowLeft/>
       </button>
   
-      <button onClick={handleRightScroll} className='bg-white shadow-[0px_0px_10px_grey] text-4xl top-[45%] right-2 text-black rounded-full absolute'>
+      <button onClick={handleRightScroll} className='bg-white shadow-[0px_0px_10px_grey] hidden lg:block md:block text-4xl top-[45%] right-2 text-black rounded-full absolute'>
         <MdOutlineKeyboardArrowRight/>
       </button>
         </div>:<Loading />

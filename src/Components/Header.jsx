@@ -14,6 +14,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { RiLayoutGridFill } from "react-icons/ri";
 import { MdCancel } from "react-icons/md";
 import { DataContext } from "../App";
+import { RiMenu3Line } from "react-icons/ri";
+import { MdKeyboardArrowUp } from "react-icons/md";
+import { MdHomeFilled } from "react-icons/md";
+import { GrProjects } from "react-icons/gr";
 
 const Header = () => {
   // const stateIsLoggedIn = useSelector(state => state.codepenData.isLoggedIn)
@@ -25,6 +29,7 @@ const Header = () => {
   const [showSearchOptions , setShowSearchOptions] = useState(false);
   const ctx = useContext(DataContext);
   const {pathname} = useLocation();
+  const [showSmallOptions , setShowSmallOptions] = useState(false);
  
 
   const handleLogOutOptions = () => {
@@ -74,22 +79,80 @@ const Header = () => {
   // console.log(stateUserData.photoURL);
 
   return (
-    <div className=" relative flex justify-between px-10 items-center w-full h-[9vh] bg-[#000000]">
+    <div className=" relative flex justify-between px-4 md:px-8 lg:px-10 items-center w-full h-[9vh] bg-[#000000]">
+      <div className="flex items-center justify-start gap-3">
+      <div 
+      onClick={()  => setShowSmallOptions(!showSmallOptions)}
+      className="lg:hidden md:hidden relative bg-[#414040] py-1 rounded flex items-center justify-center">
+      <RiMenu3Line  className="text-white  text-2xl"/>
+      <MdKeyboardArrowUp className="text-white  text-2xl"/>
+
+      <AnimatePresence>
+        {
+          showSmallOptions ? <motion.div
+          initial={{y:-30 , opacity:0}}
+          animate={{y:0 , opacity:1}}
+          exit={{opacity:0 , y:30}}
+          className="absolute top-[150%] rounded-xl left-0 w-[200px] h-[200px] z-[5] bg-[#1E1F26]">
+          <motion.div 
+        
+          className="flex h-[15vh] flex-col gap-2 items-center justify-center">
+            <code className="text-[grey] text-[13px] ">Try our online Editor</code>
+  
+          <Link to={"/pen/new_project"}
+              style={{
+                background:
+                  "linear-gradient(115deg, #4fcf70, #fad648, #a767e5, #12bcfe, #44ce7b)",
+              }}
+              className="lg:w-[156px] w-[156px] h-[50px]  rounded lg:h-[55px] mt-[1rem ]  grid place-items-center  "
+            >
+              <button className="lg:w-[150px] w-[150px] text-white text-[13px] bg-black hover:bg-[#252525] rounded h-[45px] lg:h-[50px] ">
+                Start Coding
+              </button>
+            </Link>
+  
+  
+          </motion.div>
+  
+            <motion.div 
+            
+              className="w-full grid place-items-center h-[13vh]">
+              <div className="text-[#8f8f8f] lg:w-[60%]  w-[80%]  flex flex-col gap-5  ">
+                  <Link to={"/home/trending"} className=" w-full flex items-center justify-start gap-3 hover:text-white cursor-pointer">
+                    <MdHomeFilled className="text-[18px] lg:text-xl" />
+                    <p  className=" text-[13px] lg:text-[1rem]"> Home</p>
+                  </Link>
+                  <Link to={"/your_projects"}    className=" w-full flex items-center justify-start gap-3  hover:text-white cursor-pointer ">
+                  
+                  
+                    <GrProjects className="text-[15px] lg:text-xl" />
+                    <p className=" text-[13px] lg:text-[1rem]">Your Projects</p>
+                  </Link>
+                  {/* <Link to={"/home/"}  className=" w-full flex items-center  justify-start gap-3   hover:text-white cursor-pointer">
+                    <GiInspiration  className="text-xl" />
+                    <p className="text-[1rem]">Inspirations</p>
+                  </Link> */}
+                </div>
+              </motion.div>
+          </motion.div> : null
+        }
+      </AnimatePresence>
+      </div>
       {/* <ToastContainer /> */}
       <motion.div
         variants={variantsObj}
         initial="hidden"
         animate="visible"
-        className="text-[#868CA0] relative flex items-center gap-2 justify-center text-xl  bg-[#252830]  w-[300px] h-[6vh] rounded"
+        className="text-[#868CA0] relative flex items-center gap-2 justify-center text-xl  bg-[#252830] md:w-[250px] w-[150px]  lg:w-[300px] h-[6vh] rounded"
       >
-        <FiSearch className="text-2xl" />
+        <FiSearch className="text-xl lg:text-2xl" />
         <input
         onFocus={handleShowSearchCategory}
         value={ctx.searchValue}
         onChange={(e) => ctx.setSearchValue(e.target.value) }
           type="text"
           
-          className="text-[#868CA0] w-[85%]  outline-0 border-0 rounded placeholder:text-[#868CA0] h-full"
+          className="text-[#868CA0] md:w-[83%] w-[70%] lg:w-[85%] text-[14px] lg:text-[16px]  outline-0 border-0 rounded placeholder:text-[#868CA0] h-full"
           placeholder="Search..."
         />
         {
@@ -114,7 +177,8 @@ const Header = () => {
           </motion.div> : null
         }
       </motion.div>
-    <div className="flex items-center justify-center gap-10">
+      </div>
+    <div className="flex items-center justify-center gap-2 md:gap-8 lg:gap-10">
       <motion.div 
          initial={{
           y:-20,
@@ -130,7 +194,7 @@ const Header = () => {
           }
         }}
      id="gemini"
-      className=" w-[40px] h-[40px]  transition-all  hover:bg-[#ffffff] rounded-full relative">
+      className=" md:w-[35px] w-[30px] lg:w-[40px] lg:h-[40px]  transition-all  hover:bg-[#ffffff] rounded-full relative">
          <motion.img
           animate={{
              rotate : 360,
@@ -144,7 +208,7 @@ const Header = () => {
           }}
 
           onClick={() =>navigate("/ask_ai")}
-         className="w-[100%] image "  src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" />
+         className="w-[100%]  "  src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" />
          <p id="ask" className="bg-white ask  absolute w-[50px] text-center rounded top-[140%] ">Ask  AI </p>
       
       </motion.div>
@@ -190,7 +254,7 @@ const Header = () => {
                   e.stopPropagation();
                   setShowOptions(false);
                 }}
-                className="bg-[#ffffff00] fixed top-0 left-0  bottom-0 right-0 "
+                className="bg-[#ffffff00] fixed top-0 left-0 z-[20]  bottom-0 right-0 "
               >
                 <motion.div
                   initial={{

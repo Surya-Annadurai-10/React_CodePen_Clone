@@ -103,7 +103,7 @@ const Layout = () => {
 
             <SideBar />
        
-        <div className={`${ctx.isSideBarOpen ? "w-[85%]" : "w-[98%]"}`}>
+        <div className={`${ctx.isSideBarOpen ? "lg:w-[85%] md:w-[80%] w-[100%]" : "w-[98%]"}`}>
             <Header />
             <Outlet />
             <Footer />

@@ -12,7 +12,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../firebase";
 import LoadingGemini from "../Components/LoadingGemini";
 import { FaRegMessage } from "react-icons/fa6";
-import MessageCard from "../Components/messageCard";
+import MessageCard from "../Components/MessageCard";
 import GeminiCard from "../Components/GeminiCard";
 import { Input } from "@mui/material";
 import { MdClear } from "react-icons/md";

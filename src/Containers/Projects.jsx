@@ -95,13 +95,13 @@ const handleRightScroll = ()=>{
            transition={{
          delayChildren : 0.5
            }}
-       className='lg:w-[48%]  md:w-[100%] md:mb-5  flex flex-col gap-4 ' >
+       className='lg:w-[48%] w-[100%]   md:w-[100%] md:mb-5  flex flex-col gap-4 ' >
            <div  className='flex h-[30%] lg:gap-5 gap-2 py-2 items-start'>
             <div className='w-[10%]'>
               <img className='lg:w-[100px] lg:block hidden' src="https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png" alt="" />
             </div>
-            <div className=' lg:h-[140px] md:h-[80px] w-[90%]'>
-              <h1 className='lg:text-4xl lg:text-left text-center text-3xl leading-snug font-bold'>The best place to
+            <div className=' lg:h-[140px] h-[90px] md:h-[80px] md:w-[90%] w-[100%] lg:w-[90%]'>
+              <h1 className='lg:text-4xl lg:text-left text-center md:text-3xl text-2xl leading-snug font-bold'>The best place to
               <span className='colorized_2' >
                   
               <Typewriter

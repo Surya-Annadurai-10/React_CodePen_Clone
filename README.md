@@ -21,6 +21,15 @@ CodePen AI is an interactive coding environment designed for practicing and deve
 ## Login Page
 ![Screenshot 2025-03-02 115931](https://github.com/user-attachments/assets/b69a7fc8-d455-4002-bc1d-5fd7e2764d62)
 
+## Technologies Used
+
+- **React.js**: Core framework for building the application.
+- **Firebase**: Authentication and Firestore database.
+- **Redux Toolkit**: State management solution.
+- **HTML, CSS, JavaScript**: Core web technologies for the live coding environment.
+- **Tailwind CSS**: For styling.
+- **Framer Motion**: For Animations.
+
 ## Features
 
 
@@ -39,12 +48,6 @@ CodePen AI is an interactive coding environment designed for practicing and deve
 - **Responsive Design**: Optimized for mobile, tablet, and desktop screens.
 - **Built with React.js**: Ensuring high performance and maintainability.
 
-## Technologies Used
-
-- **React.js**: Core framework for building the application.
-- **Firebase**: Authentication and Firestore database.
-- **Redux Toolkit**: State management solution.
-- **HTML, CSS, JavaScript**: Core web technologies for the live coding environment.
 
 ## Getting Started
 

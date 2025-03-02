@@ -4,13 +4,21 @@
 
 CodePen AI is an interactive coding environment designed for practicing and developing projects using HTML, CSS, and JavaScript. This platform provides adjustable panels with live previews, offering a seamless live coding experience.
 ## Live Link : [Go Live](https://react-code-pen-clone-nine.vercel.app/home/trending)
+## Home
 ![Screenshot 2025-03-02 115239](https://github.com/user-attachments/assets/b6278d2d-cb5a-4662-a8ca-a94dc179630b)
+## Ask AI
 ![Screenshot 2025-03-02 115407](https://github.com/user-attachments/assets/ed2feb3c-d168-437d-9742-f3e8190125f0)
+## Your Projects
 ![Screenshot 2025-03-02 115423](https://github.com/user-attachments/assets/2ca42b01-010c-40e6-bd13-b709e680517a)
+## Coding Environment
 ![Screenshot 2025-03-02 115444](https://github.com/user-attachments/assets/f9a94c4d-b6e5-4cb2-a3f2-8f894dfbb7ef)
+## Tablet Responsive
 ![Screenshot 2025-03-02 115510](https://github.com/user-attachments/assets/acda759c-ec43-40b5-b569-8e718f0bab39)
+## Mobile Responsive
 ![Screenshot 2025-03-02 115723](https://github.com/user-attachments/assets/acfab61a-16f3-4a9e-8b26-4c1bf8bb58de)
+## Sign Up 
 ![Screenshot 2025-03-02 115918](https://github.com/user-attachments/assets/bef6cf18-50d7-47b9-b5cc-a5dab58d9721)
+## Login Page
 ![Screenshot 2025-03-02 115931](https://github.com/user-attachments/assets/b69a7fc8-d455-4002-bc1d-5fd7e2764d62)
 
 ## Features

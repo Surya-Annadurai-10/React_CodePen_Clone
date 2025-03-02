@@ -278,7 +278,7 @@ const createNewUser = async() =>{
                 showPass(false)
                }} className=' hover:underline underline-offset-2 cursor-pointer origin-center text-[#00BC7D]' >{showLogin ? "Sign Up Here" : "Login Here"}</span></p>
              </div>
-              <div className="flex items-center justify-around py-6">
+              <div className="flex items-center justify-around py-1 md:py-6 lg:py-6">
                <div className='h-[1px] w-[35%] bg-[#6f6f6f]'></div>
                 <p className='text-[#6f6f6f]'>or</p>
                 <div className='h-[1px] w-[35%] bg-[#6f6f6f]'></div>
@@ -291,7 +291,7 @@ const createNewUser = async() =>{
                 </motion.button>
                 
              </div>
-             <div className="flex items-center justify-around py-6">
+             <div className="flex items-center justify-around py-1 md:py-6 lg:py-6">
                 <div className='h-[1px] w-[35%] bg-[#6f6f6f]'></div>
                 <p className='text-[#6f6f6f]'>or</p>
                 <div className='h-[1px] w-[35%] bg-[#6f6f6f]'></div>

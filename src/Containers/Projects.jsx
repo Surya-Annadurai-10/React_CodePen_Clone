@@ -12,6 +12,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { DataContext } from '../App'
 import Loading from '../Components/Loading'
+import { Typewriter } from 'react-simple-typewriter'
 
 
 export const variantsObj = {
@@ -94,19 +95,33 @@ const handleRightScroll = ()=>{
            transition={{
          delayChildren : 0.5
            }}
-       className='lg:w-[48%] md:w-[100%] md:mb-5  flex flex-col gap-4 ' >
-           <div 
-           
-          
-           className='flex lg:gap-5 gap-2 py-2 items-start'>
-            <div>
+       className='lg:w-[48%]  md:w-[100%] md:mb-5  flex flex-col gap-4 ' >
+           <div  className='flex h-[30%] lg:gap-5 gap-2 py-2 items-start'>
+            <div className='w-[10%]'>
               <img className='lg:w-[100px] lg:block hidden' src="https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png" alt="" />
             </div>
-            <div>
-              <h1 className='lg:text-4xl lg:text-left text-center text-3xl leading-snug font-bold'>The best place to build, test, and discover front-end code.</h1>
+            <div className=' lg:h-[140px] md:h-[80px] w-[90%]'>
+              <h1 className='lg:text-4xl lg:text-left text-center text-3xl leading-snug font-bold'>The best place to
+              <span className='colorized_2' >
+                  
+              <Typewriter
+                            words={[` build, test, and discover front-end code.`]}
+                            loop={0}
+                            cursor ={true}
+                            cursorStyle='|'
+                            typeSpeed={70}
+                            deleteSpeed={50}
+                            delaySpeed={1000}
+                          
+                            
+                          />
+              </span>
+                </h1>
             </div>
            </div>
-           <p  className='leading-relaxed lg:text-left text-center'>CodePen is a <strong>social development</strong> environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
+          <div className='h-[70%]'>
+          <p  className='leading-relaxed lg:text-left text-center'>CodePen is a <strong>social development</strong> environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.</p>
+          </div>
         {
           stateIsLoggedIn ? null :   <motion.button whileTap={{scale:0.9}} className='w-[fit-content]'>
           <Link to="/home/authentication" className='grid place-items-center w-[150px] hover:shadow-[0px_0px_10px_green] my-3 h-[45px] rounded bg-emerald-500 hover:bg-emerald-700'>Sign Up for Free</Link>

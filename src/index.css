@@ -124,3 +124,13 @@ html{
   font-weight: bold; 
   -webkit-text-fill-color: transparent;
 }
+
+
+.colorized_2 {
+  width:fit-content;
+  background:linear-gradient(115deg, #4fcf70, #fad648, #a767e5, #12bcfe, #44ce7b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: bold; 
+  -webkit-text-fill-color: transparent;
+}

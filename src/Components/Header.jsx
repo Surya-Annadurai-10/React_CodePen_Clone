@@ -80,7 +80,11 @@ const Header = () => {
 
   return (
     <div className=" relative flex justify-between px-4 md:px-8 lg:px-10 items-center w-full h-[9vh] bg-[#000000]">
-      <div className="flex items-center justify-start gap-3">
+      <motion.div
+        variants={variantsObj}
+        initial="hidden"
+        animate="visible"
+      className="flex items-center justify-start gap-3">
       <div 
       onClick={()  => setShowSmallOptions(!showSmallOptions)}
       className="lg:hidden md:hidden relative bg-[#414040] py-1 rounded flex items-center justify-center">
@@ -177,7 +181,7 @@ const Header = () => {
           </motion.div> : null
         }
       </motion.div>
-      </div>
+      </motion.div>
     <div className="flex items-center justify-center gap-2 md:gap-8 lg:gap-10">
       <motion.div 
          initial={{
@@ -209,7 +213,7 @@ const Header = () => {
 
           onClick={() =>navigate("/ask_ai")}
          className="w-[100%]  "  src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" />
-         <p id="ask" className="bg-white ask  absolute w-[50px] text-center rounded top-[140%] ">Ask  AI </p>
+         <p id="ask" className="bg-white ask  absolute w-[50px] z-5 text-center rounded top-[140%] ">Ask  AI </p>
       
       </motion.div>
 

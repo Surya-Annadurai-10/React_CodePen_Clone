@@ -7,7 +7,7 @@ import { useAi } from "../config/GeminiConfig";
 import ReactMarkdown from "react-markdown";
 import { Cursor, Typewriter, useTypewriter } from "react-simple-typewriter";
 import { useDispatch, useSelector } from "react-redux";
-import { geminiData } from "../slices/slice";
+import { addUserData, geminiData, loggedIn } from "../slices/slice";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../firebase";
 import LoadingGemini from "../Components/LoadingGemini";
@@ -16,6 +16,7 @@ import MessageCard from "../Components/CardMessage";
 import GeminiCard from "../Components/GeminiCard";
 import { Input } from "@mui/material";
 import { MdClear } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Gemini = () => {
   const [expand, setExpand] = useState(false);
@@ -33,7 +34,7 @@ const Gemini = () => {
   const [showUserName, setShowUserName] = useState(false);
   const [text, setText] = useState("");
   const chatContainerRef = useRef(null);
-
+const navigate = useNavigate();
   // const [texted] = useTypewriter({
   //   words: [`Surya,`],
   //   loop: 0,
@@ -42,6 +43,19 @@ const Gemini = () => {
     
   
   // });
+
+
+     useEffect(() =>{
+          let user = JSON.parse(localStorage.getItem("userData"))
+          if(user){
+            dispatch(loggedIn(true));
+            dispatch(addUserData(user))
+            
+          }else  {
+            dispatch(loggedIn(false))
+            navigate("/home/trending")
+          };
+        },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -177,7 +191,6 @@ const Gemini = () => {
   //   const genAI = new GoogleGenerativeAI(apiKey);
   //   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  //   const prompt = "Explain how AI works";
 
   //   const result = await model.generateContent(prompt);
   //   console.log(result.response.text());
@@ -195,8 +208,8 @@ const Gemini = () => {
         // onMouseEnter={() => setExpand(true)}
 
         className={` ${
-          expand ? `w-[20%]` : `w-[6%]`
-        } h-[100%] absolute left-0 bg-[#1c1c23]`}
+          expand ? `lg:w-[20%] md:w-[40%] w-[50%]` : `lg:w-[6%] md:w-[6%] w-[10%]`
+        } h-[100%] absolute z-[10] left-0 bg-[#1c1c23]`}
       >
         <motion.div 
            initial={{
@@ -212,10 +225,10 @@ const Gemini = () => {
               ease:"easeInOut"
             }
           }}
-        className="flex items-start pl-6 pt-5 justify-center flex-col gap-15">
+        className="flex items-start pl-2 md:pl-2 lg:pl-6 pt-5 justify-center flex-col gap-15">
           <IoMenu
             onClick={() => setExpand(!expand)}
-            className="text-3xl text-[grey]"
+            className="lg:text-3xl text-xl md:text-2xl text-[grey]"
           />
           <motion.div
              initial={{
@@ -231,18 +244,23 @@ const Gemini = () => {
                 ease:"easeInOut"
               }
             }}
-            className={`flex items-center justify-center gap-1 px-2 py-1 ${
+
+            onClick={() => {
+              inputRef.current.focus()
+              setExpand(false)
+            }}
+            className={`flex cursor-pointer items-center justify-center gap-1  py-1 ${
               expand ? `bg-[#353535] ` : null
             } rounded-3xl`}
           >
-            <MdAddCircle className="text-3xl text-[#adadad]" />
-            {expand ? <h1 className="text-[#b3b3b3]">New Chat</h1> : null}
+            <MdAddCircle className="lg:text-3xl  text-xl md:text-2xl text-[#adadad]" />
+            {expand ? <h1 className="md:text-sm  pr-2  text-[#b3b3b3]">New Chat</h1> : null}
           </motion.div>
         </motion.div>
 
         {expand ? (
           <div className="pl-6 pt-5">
-            <h1 className="px-3 py-1 w-[fit-content] rounded-3xl bg-[#313131] text-[#aeaeae]">
+            <h1 className="px-3 py-1 md:text-sm  w-[fit-content] rounded-3xl bg-[#313131] text-[#aeaeae]">
               Recent
             </h1>
             {/* <MdClear
@@ -259,10 +277,10 @@ const Gemini = () => {
         ) : null}
       </motion.div>
 
-      <div onClick={()=> setExpand(false)} className={`relative w-[94%]  h-[100%]`}>
+      <div onClick={()=> setExpand(false)} className={`relative lg:w-[94%] md:w-[94%] w-[82%]  h-[100%]`}>
         <div
           ref={chatContainerRef}
-          className="w-[60%] leading-7.5 text-[#d0d0d0] h-[75%] mt-12 relative   m-auto overflow-y-scroll p-5 markdown"
+          className="lg:w-[60%] md:w-[80%] leading-7.5 text-[#d0d0d0] h-[75%] mt-12 relative   m-auto overflow-y-scroll p-5 markdown"
         >
 
        {
@@ -282,7 +300,7 @@ const Gemini = () => {
             }
           }}
          
-          className="font-bold   text-4xl colorized">Hello   
+          className="font-bold   lg:text-4xl md:text-2xl colorized">Hello   
             <Typewriter
             words={[` ${userName},`]}
             loop={0}
@@ -294,6 +312,7 @@ const Gemini = () => {
           
             
           />
+          
           </motion.span>
      
           <motion.p
@@ -310,7 +329,7 @@ const Gemini = () => {
                 ease:"easeInOut"
               }
             }}
-           className="text-5xl">How Can i Help you Today !</motion.p>
+           className="lg:text-5xl md:text-2xl">How Can i Help you Today !</motion.p>
         </div>
        }
 
@@ -346,9 +365,9 @@ const Gemini = () => {
                   <LoadingGemini />
                 ) : (
                   <div className="w-[100%] flex  items-start">
-                    <div className="w-[8%]">
+                    <div className="w-[8%] ">
                       <img
-                        className="w-[40px] image "
+                        className="lg:w-[40px] w-[30px] md:w-[35px] image "
                         src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg"
                         alt=""
                       />
@@ -381,11 +400,11 @@ const Gemini = () => {
             }
           }}
           onSubmit={handleSubmit}
-          className="w-[60%] flex items-center justify-center absolute bottom-[8%] left-[20%]  h-[60px] bg-[#2a2929] rounded-4xl"
+          className="lg:w-[60%] md:w-[80%] w-[92%]   flex items-center justify-center absolute md:bottom-[5%] lg:bottom-[8%] bottom-[4%]  left-[7%] md:left-[10%] lg:left-[20%]  h-[60px] bg-[#2a2929] rounded-4xl"
         >
           <input
             ref={inputRef}
-            className="w-[90%] h-[100%] rounded-4xl outline-0 border-0 text-[#9b9a9a]"
+            className="lg:w-[90%] md:w-[88%] w-[83%]  h-[100%] rounded-4xl outline-0 border-0 text-[#9b9a9a]"
             placeholder="Ask AI.."
             type="text"
           />

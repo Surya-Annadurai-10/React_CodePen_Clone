@@ -173,7 +173,7 @@ useEffect(() =>{
             >
               <IoArrowBackCircleSharp 
                 onClick={handleNavigateToHome}
-                className="text-5xl text-emerald-500"
+                className="lg:text-5xl md:text-5xl  text-3xl text-emerald-500"
               />
             </motion.div>
           
@@ -183,7 +183,7 @@ useEffect(() =>{
               
               >
                 <motion.img
-                  className="w-[35px]"
+                  className="lg:w-[35px] md:w-[35px] w-[25px]"
                   src="https://cdn.pixabay.com/photo/2022/03/15/18/13/code-7070894__480.png"
                   alt=""
                 />
@@ -193,12 +193,32 @@ useEffect(() =>{
               <div className="flex justify-start items-center gap-2">
                <AnimatePresence>
                {isEditTitle ? (
-                  <motion.div className="flex items-center justify-center">
+                  <motion.div
+                  initial={{
+                 scale :0,
+                    opacity:0
+                  }}
+
+                  animate={{
+                   scale:1,
+                  opacity:1,
+                  transition:{
+                    duration:0.3,
+                    ease:"easeInOut"
+                  }
+                  }}
+
+                  exit={{
+                   scale:0,
+                    opacity:0
+                  }}
+                  
+                  className="flex items-center justify-center">
                     <input
                       ref={editRef}
                       value={projectTitle}
                       onChange={(e) => setProjectTitle(e.target.value)}
-                      className="bg-[#040404] caret-amber-50 outline-0 text-white"
+                      className="bg-[#040404] md:w-[200px] lg:w-[200px] w-[100px]  caret-amber-50 outline-0 text-white"
                       type="text"
                     />
                     <FaCheck
@@ -210,7 +230,7 @@ useEffect(() =>{
                   </motion.div>
                 ) : (
                   <>
-                    <h2 className="text-xl font-bold">{projectTitle}</h2>
+                    <h2 className="lg:text-xl md:text-xl text-sm font-bold">{projectTitle}</h2>
                     <FaPencilAlt
                       onClick={() => {
                         setIsEditTitle(true);
@@ -221,7 +241,7 @@ useEffect(() =>{
                </AnimatePresence>
               </div>
               <div>
-                <p className="text-[11px] text-[#8d8d8d]">Surya Annadurai</p>
+                <p className="lg:text-[11px] md:text-[11px] text-[9px] text-[#8d8d8d]">Surya Annadurai</p>
               </div>
             </div>
           </motion.div>
@@ -230,12 +250,12 @@ useEffect(() =>{
             variants={variantsObj}
             initial="hidden"
             animate="visible"
-            className="text-white flex items-center gap-3"
+            className="text-white  flex items-center gap-3"
           >
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleSave}
-              className="w-24 h-11 text-black hover:bg-emerald-700 bg-emerald-500 rounded"
+              className="lg:w-24 lg:h-11 md:w-24 w-17 h-7 md:h-11 text-black text-sm md:text-[14px] lg:text-[14px] hover:bg-emerald-700 bg-emerald-500 rounded"
             >
               Save
             </motion.button>
@@ -246,7 +266,7 @@ useEffect(() =>{
               >
                 <motion.img
                   whileHover={{ scale: 1.2, transition: { duration: 0.5 } }}
-                  className="w-[50px] rounded-full object-cover "
+                  className="lg:w-[50px] md:w-[50px] w-[30px] rounded-full object-cover "
                   src={
                     stateUserData.photoURL
                       ? stateUserData.photoURL
@@ -269,7 +289,7 @@ useEffect(() =>{
         >
           <PanelGroup direction="vertical" className="bg-black">
             <Panel defaultSize={50} minSize={5} maxSize={90}>
-              <PanelGroup direction="horizontal">
+              <PanelGroup className="md:block lg:block hidden" direction="horizontal">
                 <Panel minSize={5} defaultSize={34}>
                   <div>
                     <header className="text-[#9DAEBC]">

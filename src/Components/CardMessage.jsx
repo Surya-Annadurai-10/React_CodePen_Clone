@@ -11,8 +11,10 @@ const MessageCard = (props) => {
          className="bg-[#4646468a] mb-4 p-2 rounded-md text-[#ababab] w-[100%]   z-10 flex items-center justify-start gap-2"
         
          >
-            <FaRegMessage />
-            <span className="line-clamp-1">{props.ele}</span>
+           <div >
+           <FaRegMessage  />
+           </div>
+            <span className="md:text-sm line-clamp-1">{props.ele}</span>
          </div>
     </div>
   )

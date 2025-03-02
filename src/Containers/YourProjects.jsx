@@ -8,6 +8,7 @@ import { addPinnedProjects, addUserData, initialRender, loggedIn } from '../slic
 import ProjectCard from '../Components/ProjectCard';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
+import { motion } from 'motion/react';
 
 
 const YourProjects = () => {

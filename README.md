@@ -86,10 +86,6 @@ CodePen AI is an interactive coding environment designed for practicing and deve
 
 Feel free to contribute to CodePen AI by submitting issues, feature requests, or pull requests.
 
-## License
-
-This project is licensed under the MIT License.
-
 ---
 
 Developed with ❤️ using React.js | By Surya Annadurai

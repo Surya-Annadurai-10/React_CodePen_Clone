@@ -64,7 +64,7 @@ CodePen AI is an interactive coding environment designed for practicing and deve
    ```
 3. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ### Firebase Setup

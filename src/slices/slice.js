@@ -57,7 +57,6 @@ const slice = createSlice({
         },
         LoggedOut(state, action){
           state.isLoggedIn = action.payload.loggedIn
-          // state.isLoggedIn : false,
             state.userData = action.payload.userdata
             state.projects =  action.payload.project
             state.pinned =action.payload.pinned

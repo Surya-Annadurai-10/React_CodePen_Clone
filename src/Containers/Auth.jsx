@@ -33,7 +33,7 @@ const Auth = () => {
              variants={variantsObj}
                initial="hidden"
                animate="visible"
-             >Become one of Us !🤩</motion.h1>
+             >Join Our Community, Lets Grow Together !🤩</motion.h1>
              <AuthBox />
         </div>
              
